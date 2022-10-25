@@ -1,19 +1,27 @@
 import { useState } from "react";
-import { type } from "@testing-library/user-event/dist/type";
 export function SearchAndFetch () {
     const [pokemons, setPokemons] = useState([]);
+    const [input, setInput] = useState("");
 
-    const getPokemon = async() => {
+    //get full set of pokemon data
+    const getPokemon = async(input) => {
+        //get data from API
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
         const data = await response.json();
         console.log(data.results);
         setPokemons(data.results);
     }
 
+    // const parseData = (e) => {
+    //     console.log(e.target.value);
+    //     setInput(e.target.value);
+    //     console.log(input);
+    // }
+
     return (
         <>
             <h1>Pokemon Finder</h1>
-            <input></input>
+            <input value={input}/>
             <button onClick={getPokemon}>Search</button>
         </>
     );
